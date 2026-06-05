@@ -32,7 +32,7 @@ function solveKnapsack(tasks, maxHours) {
 
   for (const task of tasks) {
     const weight = Math.round(task.Duration * 10);
-    const value = task.Score;
+    const value = task.Impact;
 
     if (weight > capacity) continue;
 
@@ -81,8 +81,7 @@ app.get('/schedule', async (req, res) => {
     const results = [];
 
     for (const depot of depots) {
-      const depotTasks = vehicles.filter(v => v.DepotID === depot.ID);
-      const schedule = solveKnapsack(depotTasks, depot.MechanicHours);
+      const schedule = solveKnapsack(vehicles, depot.MechanicHours);
 
       results.push({
         depotId: depot.ID,
